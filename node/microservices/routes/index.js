@@ -5,34 +5,38 @@ let Mongoose = require('mongoose').Mongoose;
 let Schema = require('mongoose').Schema;
 
 let oldMong = new Mongoose();
-oldMong.connect('mongodb://127.0.0.1:27017/db');
+oldMong.connect('mongodb://localhost:27017/db');
 
-let meetingSchema = new Schema({
-  meetingId: String,
-  title: String,
+let ticketSchema = new Schema({
+  ticketId: String,
+  ticketNumber: String,
+  cost: String,
+  departureTime: String,
+  duration: String,
+  departure: String,
+  destination: String,
   image: String,
-  address: String,
-  description: String
-}, { collection: 'meetings' });
+}, { collection: 'tickets' });
 
-let meetings = oldMong.model('meetings', meetingSchema);
+let tickets = oldMong.model('tickets', ticketSchema);
 
 router.get('/', async function (req, res, next) {
-  const meetings = await getMeetings();
+  const meetings = await getTickets();
   res.render('index');
 });
 
-router.post('/getMeetings', async function (req, res, next) {
-  const meetings = await getMeetings();
-  res.json(meetings);
+router.post('/getTickets', async function (req, res, next) {
+  const tickets = await getTickets();
+  res.json(tickets);
 });
 
-async function getMeetings() {
-  data = await meetings.find().lean();
-  return { meetings: data };
+async function getTickets() {
+  data = await tickets.find().lean();
+  console.long(tickets)
+  return { ticekts: data };
 }
 
-router.post('/saveMeeting', async function (req, res, next) {
+/*router.post('/saveMeeting', async function (req, res, next) {
   const meetings = await saveMeeting(req.body);
   res.json(meetings);
 });
@@ -48,6 +52,6 @@ async function saveMeeting(theMeeting) {
     }
   )
   return { saveMeetingResponse: "success" };
-}
+}*/
 
 module.exports = router;

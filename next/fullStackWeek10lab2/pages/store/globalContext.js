@@ -9,22 +9,23 @@ import { createContext, useState, useEffect } from 'react'
 const GlobalContext = createContext()
 
 export function GlobalContextProvider(props) {
-    const [globals, setGlobals] = useState({ aString: 'init val', count: 0, hideHamMenu: true, meetings: [], dataLoaded: false })
+    const [globals, setGlobals] = useState({ aString: 'init val', count: 0, hideHamMenu: true, tickets: [], dataLoaded: false })
 
     useEffect(() => {
-        getAllMeetings()
+        getAllTickets()
     }, []);
 
-    async function getAllMeetings() {
-        const response = await fetch('/api/get-meetings', {
+    async function  getAllTickets() {
+        const response = await fetch('/api/get-tickets', {
             method: 'POST',
-            body: JSON.stringify({ meetups: 'all' }),
+            body: JSON.stringify({ tickets: 'all' }),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
+       // console.log(globals.tickets);
         let data = await response.json();
-        setGlobals((previousGlobals) => { const newGlobals = JSON.parse(JSON.stringify(previousGlobals)); newGlobals.meetings = data.meetings; newGlobals.dataLoaded = true; return newGlobals })
+        setGlobals((previousGlobals) => { const newGlobals = JSON.parse(JSON.stringify(previousGlobals)); newGlobals.tickets = data.tickets; newGlobals.dataLoaded = true; return newGlobals })
     }
 
     async function editGlobalData(command) { // {cmd: someCommand, newVal: 'new text'}
@@ -37,7 +38,7 @@ export function GlobalContextProvider(props) {
                 newGlobals.hideHamMenu = command.newVal; return newGlobals
             })
         }
-        if (command.cmd == 'addMeeting') {
+        /*if (command.cmd == 'addMeeting') {
             const response = await fetch('/api/new-meetup', {
                 method: 'POST',
                 body: JSON.stringify(command.newVal),
@@ -50,7 +51,7 @@ export function GlobalContextProvider(props) {
                 const newGlobals = JSON.parse(JSON.stringify(previousGlobals))
                 newGlobals.meetings.push(command.newVal); return newGlobals
             })
-        }
+        }*/
     }
 
     const context = {
@@ -60,6 +61,7 @@ export function GlobalContextProvider(props) {
 
     return <GlobalContext.Provider value={context}>
         {props.children}
+        {console.log(globals.tickets)}
     </GlobalContext.Provider>
 }
 
