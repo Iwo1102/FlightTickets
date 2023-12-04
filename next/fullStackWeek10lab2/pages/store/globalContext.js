@@ -9,7 +9,7 @@ import { createContext, useState, useEffect } from 'react'
 const GlobalContext = createContext()
 
 export function GlobalContextProvider(props) {
-    const [globals, setGlobals] = useState({ aString: 'init val', count: 0, hideHamMenu: true, meetings: [], dataLoaded: false })
+    const [globals, setGlobals] = useState({ aString: 'init val', count: 0, hideHamMenu: true, tickets: [], dataLoaded: false })
 
     useEffect(() => {
         getAllMeetings()
@@ -18,13 +18,13 @@ export function GlobalContextProvider(props) {
     async function getAllMeetings() {
         const response = await fetch('/api/get-meetings', {
             method: 'POST',
-            body: JSON.stringify({ meetups: 'all' }),
+            body: JSON.stringify({ tickets: 'all' }),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
         let data = await response.json();
-        setGlobals((previousGlobals) => { const newGlobals = JSON.parse(JSON.stringify(previousGlobals)); newGlobals.meetings = data.meetings; newGlobals.dataLoaded = true; return newGlobals })
+        setGlobals((previousGlobals) => { const newGlobals = JSON.parse(JSON.stringify(previousGlobals)); newGlobals.tickets = data.tickets; newGlobals.dataLoaded = true; return newGlobals })
     }
 
     async function editGlobalData(command) { // {cmd: someCommand, newVal: 'new text'}
@@ -48,7 +48,7 @@ export function GlobalContextProvider(props) {
             const data = await response.json(); // Should check here that it worked OK
             setGlobals((previousGlobals) => {
                 const newGlobals = JSON.parse(JSON.stringify(previousGlobals))
-                newGlobals.meetings.push(command.newVal); return newGlobals
+                newGlobals.tickets.push(command.newVal); return newGlobals
             })
         }
     }

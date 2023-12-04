@@ -7,39 +7,42 @@ let Schema = require('mongoose').Schema;
 let oldMong = new Mongoose();
 oldMong.connect('mongodb://127.0.0.1:27017/db');
 
-let meetingSchema = new Schema({
-  meetingId: String,
-  title: String,
-  image: String,
-  address: String,
-  description: String
-}, { collection: 'meetings' });
+let ticketSchema = new Schema({
+  ticketId: String,
+  ticketNumber: String,
+  cost: String,
+  departureTime: String,
+  duration: String,
+  departure : String,
+  destination : String,
+  image : String
+}, { collection: 'tickets' });
 
-let meetings = oldMong.model('meetings', meetingSchema);
+let tickets = oldMong.model('tickets', ticketSchema);
 
 router.get('/', async function (req, res, next) {
-  const meetings = await getMeetings();
+  const tickets = await getMeetings();
   res.render('index');
 });
 
 router.post('/getMeetings', async function (req, res, next) {
-  const meetings = await getMeetings();
-  res.json(meetings);
+  const tickets = await getMeetings();
+  res.json(tickets);
 });
 
 async function getMeetings() {
-  data = await meetings.find().lean();
-  return { meetings: data };
+  data = await tickets.find().lean();
+  return { tickets: data };
 }
 
 router.post('/saveMeeting', async function (req, res, next) {
-  const meetings = await saveMeeting(req.body);
-  res.json(meetings);
+  const tickets = await saveMeeting(req.body);
+  res.json(tickets);
 });
 
 async function saveMeeting(theMeeting) {
   console.log('theMeeting: ' + theMeeting);
-  await meetings.create(theMeeting,
+  await tickets.create(theMeeting,
     function (err, res) {
       if (err) {
         console.log('Could not insert new meeting')
