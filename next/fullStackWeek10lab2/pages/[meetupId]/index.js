@@ -12,7 +12,12 @@ export default function () {
     for (let ii = 0; ii < globalCtx.theGlobalObject.tickets.length; ii++) {
         let temp = globalCtx.theGlobalObject.tickets[ii]
        // if (temp.ticketId.trim() == router.query.ticketId.trim()) { //******NEED TO MODIFY NEW MEETUP FORM******
-            returnVal = <TicketDetail image={temp.image} departure={temp.departure} destination={temp.destination} />
+            returnVal = <TicketDetail image={temp.image}
+                        departure={temp.departure}
+                        destination={temp.destination}
+                        duration={temp.duration}
+                        cost={temp.cost}
+                        ticketNumber={temp.ticketNumber} />
         //}
     }
     // In the real world, we'd put the code above in the store context module. 

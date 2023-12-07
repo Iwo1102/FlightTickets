@@ -9,8 +9,9 @@ function TicketList(props) {
         key={ticket.ticketId}
         id={ticket.ticketId}
         image={ticket.image}
-        depature={ticket.depature}
+        departure={ticket.departure}
         destination={ticket.destination}
+        duration={ticket.duration}
         cost={ticket.cost}
         />
       ))}
