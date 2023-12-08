@@ -16,7 +16,9 @@ function TicketItem(props) {
           <img src={props.image} alt={props.desitnation} />
         </div>
         <div className={classes.content}>
-          <h3>{props.desitnation}</h3>
+          <p>{props.departure} - {props.destination}</p>
+          <p>€{props.cost}</p>
+          <p>{props.duration}</p>
         </div>
         <div className={classes.actions}>
           <button onClick={showDetailsHandler}>Show Details</button>
