@@ -6,7 +6,7 @@ function TicketList(props) {
     <ul className={classes.list}>
       {props.tickets.map((ticket) => (
         <TicketItem
-        key={ticket.ticketId}
+        key={ticket._id}
         id={ticket.ticketId}
         image={ticket.image}
         departure={ticket.departure}
