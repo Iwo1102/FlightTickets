@@ -2,6 +2,16 @@ import { useState } from 'react';
 import GlobalContext from "../../pages/store/globalContext"
 import { useContext } from 'react'
 import classes from './TicketDetail.module.css'
+import handler from '../../pages/api/update-tickets'
+
+function newTicketHandler(ticketNum) {
+    let newTicketNum = ticketNum - 1;
+
+    globalCtx.updateGlobals({cmd: 'updateTickets'})
+    router.push('/');
+    
+    return newTicketNum;
+}
 
 function TicketDetail(props) {
 
@@ -14,7 +24,7 @@ function TicketDetail(props) {
             <p>{props.duration}</p>
             <p>{props.cost}</p>
             <p>{ticketState}</p>
-            <button onClick={()=> setTicketState(ticketState - 1)}>buy ticket</button>
+            <button onClick={()=> setTicketState(newTicketHandler(ticketState))}>buy ticket</button>
         </section>
     )
 }
