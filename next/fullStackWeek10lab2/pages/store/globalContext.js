@@ -12,11 +12,11 @@ export function GlobalContextProvider(props) {
     const [globals, setGlobals] = useState({ aString: 'init val', count: 0, hideHamMenu: true, tickets: [], dataLoaded: false })
 
     useEffect(() => {
-        getAllMeetings()
+        getAllTickets()
     }, []);
 
-    async function getAllMeetings() {
-        const response = await fetch('/api/get-meetings', {
+    async function getAllTickets() {
+        const response = await fetch('/api/get-tickets', {
             method: 'POST',
             body: JSON.stringify({ tickets: 'all' }),
             headers: {
@@ -39,6 +39,20 @@ export function GlobalContextProvider(props) {
         }
         if (command.cmd == 'addMeeting') {
             const response = await fetch('/api/new-meetup', {
+                method: 'POST',
+                body: JSON.stringify(command.newVal),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json(); // Should check here that it worked OK
+            setGlobals((previousGlobals) => {
+                const newGlobals = JSON.parse(JSON.stringify(previousGlobals))
+                newGlobals.tickets.push(command.newVal); return newGlobals
+            })
+        }
+        if (command.cmd == 'updateTickets') {
+            const response = await fetch('/api/update-tickets', {
                 method: 'POST',
                 body: JSON.stringify(command.newVal),
                 headers: {
