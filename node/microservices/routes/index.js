@@ -21,18 +21,34 @@ let ticketSchema = new Schema({
 let tickets = oldMong.model('tickets', ticketSchema);
 
 router.get('/', async function (req, res, next) {
-  const tickets = await getMeetings();
+  const tickets = await getTickets();
   res.render('index');
 });
 
-router.post('/getMeetings', async function (req, res, next) {
-  const tickets = await getMeetings();
+router.post('/getTickets', async function (req, res, next) {
+  const tickets = await getTickets();
   res.json(tickets);
 });
 
-async function getMeetings() {
+async function getTickets() {
   data = await tickets.find().lean();
   return { tickets: data };
+}
+
+router.post('/updateTickets', async function (req, res, next) {
+  const tickets = await updateTickets(req.body);
+  res.json(tickets);
+});
+
+async function updateTickets(ticket) {
+  let qeury = { ticketId: ticket.ticketId };
+  let newValue = {$set: { ticketNumber: ticket.newTicketNum}};
+  data = tickets.updateOne(qeury, newValue, function (err, res) {
+    if (err) {
+      console.log('Could not update ticket number')
+      return { updateTicketsResponse: "fail" };
+    }})
+  return { updateTicketsResponse: "success" };
 }
 
 router.post('/saveMeeting', async function (req, res, next) {
