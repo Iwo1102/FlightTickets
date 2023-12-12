@@ -4,8 +4,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color:  #1a2920;
+  background-color: #0077ffd7;
   padding: 0 10%;
+  background-image: url('https://cdn.pixabay.com/photo/2016/12/05/03/56/travel-1883060_1280.png');
+  background-size: contain;
+  background-repeat: no-repeat; 
 }
 
 .logo {
@@ -36,4 +39,18 @@
 .header a:active,
 .header a.active {
   color: white;
+}
+
+.logoText {
+  font-family: 'Ink Free', sans-serif;
+  font-size: 3rem;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+  cursor: default;
+}
+
+.logoText:hover,
+.logo:active {
+  color: #ffcc00;
+  transition: color 0.3s ease;
 }
