@@ -26,10 +26,11 @@ function MainNavigation() {
       <HamMenuContent contents={contents} />
       <HamMenu toggleMenuHide={() => toggleMenuHide()} />
       <HamMenuFAB toggleMenuHide={() => toggleMenuHide()} />
+        <h1 className = {classes.logoText}>RyanLingus</h1>
       <nav>
         <ul>
           <li>
-            <Link href='/'>All Tickets</Link> ({globalCtx.theGlobalObject.tickets.length})
+            <Link href='/'>Home</Link>
           </li>
         </ul>
       </nav>

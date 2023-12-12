@@ -18,11 +18,11 @@ function TicketItem(props) {
         </div>
         <div className={classes.content}>
           <p>{props.departure} - {props.destination}</p>
-          <p>€{props.cost}</p>
-          <p>{props.duration}</p>
+          <p>Starting from €{props.cost}</p>
+          <p>Flight duration: {props.duration}</p>
+          <div className={classes.actions}>
+          <button className={classes.actions} onClick={showDetailsHandler}>Show Details</button>
         </div>
-        <div className={classes.actions}>
-          <button onClick={showDetailsHandler}>Show Details</button>
         </div>
       </Card>
     </li>
