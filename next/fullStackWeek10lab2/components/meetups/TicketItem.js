@@ -7,6 +7,7 @@ function TicketItem(props) {
 
   function showDetailsHandler() {
     router.push('/' + props.id);
+    console.log(props.id);
   }
 
   return (
